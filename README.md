@@ -12,7 +12,7 @@ docker build . -t kumite
 ```
 
 ```bash
-docker run -v "$PWD/target:/target" --rm kumite {{fullS3PathOfYourFeatures}}
+docker run --rm kumite {{fullS3PathOfYourFeatures}}
 ```
 
 # Check the reports :bar_chart:
@@ -22,4 +22,5 @@ The execution should generate a Cucumber HTML report that could be open with you
 Send me anything but viruses to marta.arcones@gmail.com :woman_technologist:
 
 #TODO
+- Add examples to docker run command
 - Credential management when the bucket is not public
