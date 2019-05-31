@@ -1,20 +1,17 @@
 FROM alpine:latest
-ENV karateVersion 0.9.2
-
-ENV AWS_ACCESS_KEY_ID AKIARYGZXFUU3EEBIW5M
-ENV AWS_SECRET_ACCESS_KEY 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
-ENV AWS_REGION eu-central-1
 
 MAINTAINER Marta Arcones "marta.arcones@gmail.com"
 
-RUN apk update && apk upgrade
-RUN apk -v --update add python py-pip openjdk8-jre wget
-RUN pip install --upgrade awscli
-RUN apk -v --purge del py-pip && rm /var/cache/apk/*
+ENV KARATE_VERSION 0.9.2
 
-RUN mkdir bucket && cd bucket
+RUN apk update && apk upgrade && \
+    apk -v --update add python py-pip openjdk8-jre wget && \
+    pip install --upgrade awscli && \
+    apk -v --purge del py-pip && rm /var/cache/apk/*
 
-RUN wget https://dl.bintray.com/ptrthomas/karate/karate-${karateVersion}.jar
-RUN aws s3 sync s3://kumite .
+ADD https://dl.bintray.com/ptrthomas/karate/karate-${KARATE_VERSION}.jar bucket/
 
-CMD java -jar karate-${karateVersion}.jar * && aws s3 sync . s3://kumite
+CMD cd bucket && \
+    aws s3 sync s3://${BUCKET_NAME} . && \
+    java -jar karate-${KARATE_VERSION}.jar * && \
+    aws s3 sync target s3://${BUCKET_NAME}/target
