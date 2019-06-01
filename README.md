@@ -16,11 +16,9 @@ docker build . -t kumite
 docker run -e AWS_ACCESS_KEY_ID='{{ yourAccessKeyID }}' -e AWS_SECRET_ACCESS_KEY='{{ yourSecretAccessKey }}' -e BUCKET_NAME='{{ yourBucketName }}' --rm kumite
 ```
 
-# Check the reports :bar_chart:
-The execution should generate a Cucumber HTML report that could be open with your favourite browser at `s3://{{ yourBucketName }}/target/cucumber-html-reports/overview-features.html`
+# Path convention :bar_chart:
+- You should leave the features inside a folder named ```features``` in the bucket
+- The execution will upload to a folder named ```target``` the cucumber reports generated
 
 # Any feedback? :memo:
 Send me anything but viruses to marta.arcones@gmail.com :woman_technologist:
-
-#TODO
-- Problem to access reports directly with the browser
